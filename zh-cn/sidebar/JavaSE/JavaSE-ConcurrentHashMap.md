@@ -1,13 +1,5 @@
----
-layout: post
-title: java8 ConcurrentHashMap源码分析
-categories: JavaSE
-description: 源码分析系列之Java8 ConcurrentHashMap
-keywords: ConcurrentHashMap
----
-
 ## put方法
-直接进入put方法，同其他集合类，主要内容都在putVal方法中。
+直接进入put方法，同HashMap，主要内容都在putVal方法中。
 putVal方法主要思路如下：
 - 计算Hash值
 - 判断当前的table是否为空，如果为空则进行初始化操作。
@@ -16,8 +8,6 @@ putVal方法主要思路如下：
 - - 如果为ForwardingNode类型，则表示当前其他线程正在扩容，则进入helpTransfer()协助扩容
 - - 如果不为空且是普通节点，则对节点上锁，往链表或者红黑树添加。
 - cas更新baseCount，并判断是否需要扩容
-
-接下来看源码
 ```
 //put方法
 public V put(K key, V value) {
@@ -277,3 +267,4 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
         }
     }
 ```
+

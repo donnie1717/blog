@@ -1,11 +1,3 @@
----
-layout: post
-title: Java线程池源码分析
-categories: JavaSE
-description: Java线程池源码分析
-keywords: leetcode
----
-
 ### 线程池
 假如没有线程池，当存在较多的并发任务的时候，每执行一次任务，系统就要创建一个线程，任务完成后进行销毁，一旦并发任务过多，频繁的创建和销毁线程将会大大降低系统的效率。线程池能够对线程进行统一的分配，通过固定数量的线程来负责处理任务，避免了频繁的创建和销毁对象，使线程能够重复的利用，执行多个任务。
 
@@ -20,7 +12,7 @@ keywords: leetcode
 ***ScheduledThreadPoolExecutor*** 继承ThreadPoolExecutor的ScheduledExecutorService接口实现，周期性任务调度的类实现。
 
 ### ThreadPoolExecutor
-ThreadPoolExecutor使ExecutorService的默认实现，其功能也最为基础，通过对该类的源码解析来了解整个线程池的工作机制。
+ThreadPoolExecutor是ExecutorService的默认实现，其功能也最为基础，通过对该类的源码解析来了解整个线程池的工作机制。
 
 ThreadPoolExecutor最完整的构造器
 ```
@@ -49,13 +41,20 @@ public ThreadPoolExecutor(int corePoolSize,
         this.handler = handler;
     }
 ```
-***corePoolSize*** 线程池中保存的线程个数，包含了空闲线程
-***maximumPoolSize*** 为线程池中最多允许线程个数
-***keepAliveTime*** 当线程产生的数量多于core时候，空闲线程在这个时间如果没有新任务将被终止
-***unit*** keepAliveTime的时间单位
-***workQueue*** 线程工作任务队列。任务被执行前保存至工作队列 常用的有ArrayBlockingQueue、LinkedBlockingQuene、priorityBlockingQuene等等
-***threadFactory*** 执行程序创建新线程时使用的工厂，默认为DefaultThreadFactory
-***handler*** 由于超出线程范围和队列容量而使执行被阻塞时所使用的处理程序，主要有四种AbortPolicy、CallerRunsPolicy、DiscardOldestPolicy、DiscardPolicy
+***corePoolSize*** 
+线程池中保存的线程个数，包含了空闲线程
+***maximumPoolSize*** 
+为线程池中最多允许线程个数
+***keepAliveTime*** 
+当线程产生的数量多于core时候，空闲线程在这个时间如果没有新任务将被终止
+***unit*** 
+keepAliveTime的时间单位，可直接使用TimeUnit枚举类
+***workQueue*** 
+线程工作任务队列。任务被执行前保存至工作队列 常用的有ArrayBlockingQueue、LinkedBlockingQuene、priorityBlockingQuene等等
+***threadFactory*** 
+执行程序创建新线程时使用的工厂，默认为DefaultThreadFactory
+***handler*** 
+由于超出线程范围和队列容量而使执行被阻塞时所使用的处理程序，主要有四种AbortPolicy、CallerRunsPolicy、DiscardOldestPolicy、DiscardPolicy
 #### 工作流程图如图
 ![image.png](https://upload-images.jianshu.io/upload_images/14607771-2ed6ce29aedcbf16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### 源码解析

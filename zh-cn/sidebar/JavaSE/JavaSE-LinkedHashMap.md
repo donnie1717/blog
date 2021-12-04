@@ -1,17 +1,11 @@
----
-layout: post
-title: LinkedHashMap源码分析及实现LRU
-categories: JavaSE
-description: 源码分析系列之LinkedHashMap
-keywords: LinkedHashMap LRU
----
+[toc]
 
-### 概述
+## 1. 概述
 从名字上看LinkedHashMap相比于HashMap，显然多了链表的实现。从功能上看，LinkedHashMap有序，HashMap无序。这里的顺序指的是添加顺序或者访问顺序。
 
-### 基本使用
-```
-@Test
+## 2.基本使用
+```java
+   @Test
     public void test1(){
         LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>(16, 0.75f, true);
 
@@ -43,7 +37,7 @@ keywords: LinkedHashMap LRU
 1:1
 2:2
 ```
-### 源码分析
+## 3. 源码分析
 首先LinkedHashMap继承了HashMap，因此其基本使用与HashMap几乎完全一致。
 可以看到内部实现了双向链表  head指向最久访问，tail指向最新访问。
 ```
@@ -66,7 +60,7 @@ keywords: LinkedHashMap LRU
             super(hash, key, value, next);
         }
     }
- ```
+```
 既然有了双向链表的基本定义，那么他是怎么实现双向链表的呢？找了这个类，发现并没有重写put方法，说明直接使用父类的put。那么直接看HashMap的putVal（）方法。HashMap的源码就不再详细讲了，感兴趣的朋友可以看看我的另一篇文章。
 观察HashMap的putVal的时候我们发现创建节点会频繁的使用到newNode（）方法。
 ```
@@ -132,7 +126,8 @@ if ((tab = table) == null || (n = tab.length) == 0)
     }
 ```
 当我们将accessOrder设为true的时候，LinkedHashMap会将当前元素调整到双向链表末尾。
-### LRU缓存的实现
+
+## 4.LRU缓存的实现
 LRU（Least Recently Used，最近最少使用）算法根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
 
 根据定义，为了实现LRU，LinkedHashMap我们需要将accessOrder设为true。以保证最新使用的可以调整到链表的末尾。那么另一个比较重要的就是当缓存满的时候，需要淘汰最久没有使用的数据，及链表的头。

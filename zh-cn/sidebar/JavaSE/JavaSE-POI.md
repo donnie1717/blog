@@ -1,10 +1,4 @@
----
-layout: post
-title: Java使用POI解析Excel表格
-categories: JavaSE
-description: 使用POI解析Excel表格的demo
-keywords: leetcode
----
+
 
 ### 概述
 Excel表格是常用的数据存储工具，项目中经常会遇到导入Excel和导出Excel的功能。

@@ -1,20 +1,15 @@
----
-layout: post
-title: Java8 日期类
-categories: JavaSE
-description: 日期类
-keywords: Java8 日期类
----
+[TOC]
 
-### Java8 时间日期类操作
+## 1. 简介
 Java8的时间类有两个重要的特性
 - 线程安全
-- 不可变类，返回的都是新的对象        
-显然，该特性解决了原来java.util.Date类与SimpleDateFormat线程不安全的问题。同时Java8的时间类提供了诸多内置方法，方便了对时间进行相应的操作。    
+- 不可变类，返回的都是新的对象
 
-![image.png](https://upload-images.jianshu.io/upload_images/14607771-561927eb82ea0f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600)    
-上图为Java8时间类的覆盖范围
-相关的类有
+显然，该特性解决了原来java.util.Date类与SimpleDateFormat线程不安全的问题。同时Java8的时间类提供了诸多内置方法，方便了开发者对时间进行相应的操作。    
+
+![Java8时间相关类.png](https://upload-images.jianshu.io/upload_images/14607771-561927eb82ea0f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600)    
+
+上图为Java8相关的时间类及时间范围，具体类如下。
 - LocalDate
 - LocalTime
 - LocalDateTime
@@ -22,11 +17,13 @@ Java8的时间类有两个重要的特性
 - ZonedDateTime
 - Instant
 
-#### Instant类
-Instant类用来表示格林威治时间（UTC）开始的时间点，初始时间为1970-01-01T00:00:00Z。也就是从1970年一月一号开始计时，得到的秒值甚至是是纳秒值。该时间戳可以与日期时间转换。因此可以表示人类世界最完整的时间。该类相比原来java.util.Date类，精确到了纳秒级别。
+## 2. 时间相关类
+### 2.1 Instant类
+`Instant`类用来表示格林威治时间（UTC）开始的时间点，初始时间为1970-01-01T00:00:00Z。也就是从1970年一月一号开始计时，得到的秒值甚至是是纳秒值。该时间戳可以与日期时间转换。因此可以表示人类世界最完整的时间。该类相比原来java.util.Date类，精确到了纳秒级别。
 
 获取当前的秒值和纳秒值
-```
+```java
+// Java代码如下
 Instant instant = Instant.now();
 System.out.println(instant);
 System.out.println(instant.getEpochSecond());
@@ -43,12 +40,14 @@ Instant instant1 = Instant.ofEpochSecond(1566981233L);
 System.out.println(instant1);
 ```
 
-#### LocalDate、LocalTime、LocalDateTime、ZonedDateTime
+### 2.2 LocalDate、LocalTime、LocalDateTime、ZonedDateTime
 
-Java8使用LocalDate、LocalTime、LocalDateTime、ZonedDateTime分别操作日期、时间、日期和时间。
-这四个类的默认使用系统时区
+- Java8使用LocalDate、LocalTime、LocalDateTime、ZonedDateTime分别操作日期、时间、日期和时间。
+- 这四个类的默认使用系统时区
+
 获取当天日期及时间
-```
+```java
+// Java相关代码如下
 LocalDate today = LocalDate.now();
 System.out.println(today);
 
@@ -90,7 +89,7 @@ LocalDate localDate2 = LocalDate.parse(str, DateTimeFormatter.ofPattern("yyyy-MM
 System.out.println(localDate2);
 ```
 
-#### LocalDateTime与Instant的互相转换
+###  2.3 LocalDateTime与Instant的互相转换
 获取当天的秒值和毫秒值。LocalDateTime转Instant获取时间戳。由于LocalDateTime并没有包含时区，转为Instant需要指明所在时区。北京时间也就是东八区ZoneOffset.of("+8")
 ```
 long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
@@ -107,5 +106,5 @@ System.out.println(localDateTime2);
 结果如下
 2019-08-28T16:33:53.639
 ```
-#### 参考文章
+## 3. 参考文章
 https://blog.csdn.net/u013066244/article/details/96443952

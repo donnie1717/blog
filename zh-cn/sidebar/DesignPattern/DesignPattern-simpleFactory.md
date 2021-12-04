@@ -1,10 +1,3 @@
----
-layout: post
-title: 设计模式之工厂模式
-categories: DesignPattern
-description: Java设计模式总结之工厂模式
-keywords: DesignPattern
----
 
 ## 概述
 设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。

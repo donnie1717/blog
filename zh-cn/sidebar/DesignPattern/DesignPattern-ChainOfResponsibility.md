@@ -1,10 +1,3 @@
----
-layout: post
-title: 设计模式之职责链模式
-categories: DesignPattern
-description: Java设计模式总结之职责链模式
-keywords: DesignPattern
----
 
 
 ## 概述
